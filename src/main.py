@@ -41,18 +41,18 @@ service = build("drive", "v3", credentials=CREDENTIALS)
 
 class GdriveUser(BaseModel):
     displayName: str
-    emailAddress: str
-    photoLink: str
+    emailAddress: Optional[str]
+    photoLink: Optional[str]
 
 
 class GdriveFile(BaseModel):
     id: str
     name: str
     description: Optional[str]
-    mimeType: str
+    mimeType: Optional[str]
     iconLink: Optional[str]
     size: Optional[str]
-    lastModifyingUser: GdriveUser
+    lastModifyingUser: Optional[GdriveUser]
     modifiedTime: datetime
 
     # Calculated
@@ -158,7 +158,9 @@ updated_files = (
 if WEBHOOK_URL:
     requests.post(url=WEBHOOK_URL, json=updated_files)
 
-_persist_log_file(NEW_FILES)
+
+OLD_FILES.update(NEW_FILES)
+_persist_log_file(OLD_FILES)
 write_output_variable(
     OUTPUT_VARIABLE_NAME,
     updated_files,

@@ -17,7 +17,7 @@ runs:
       uses: dawidd6/action-download-artifact@v2
       with:
         name: Chronos Log
-        path: chronos/
+        path: chronos
         github_token: ${{ env.ACCESS_TOKEN }}
       continue-on-error: true # File may not exist on initial run
 
@@ -32,7 +32,7 @@ runs:
 
     - name: Run GDrive Chronos - Check if files have changed
       id: run-chronos
-      run: mkdir -p ${{ github.action_path }}/chronos && python ${{ github.action_path }}/src/main.py
+      run: mkdir -p chronos && python ${{ github.action_path }}/src/main.py
       shell: bash
 
     - name: Upload Chronos Log Artifact
