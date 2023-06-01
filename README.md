@@ -1,10 +1,11 @@
 # GDrive Chronos
 
-Monitor Google Drive Folder for file changes and invoke a webhook
+A GitHub Action (un-official) to Monitor a Google Drive Folder for changes/modifications and invoke a webhook with changed files and their properties.
 
 # Getting Started
 
 ## Create a Service Account
+
 - Follow this guide on how to create a Service Account: https://www.labnol.org/google-api-service-account-220404
 
 - Share the Google Drive folder with the Service Account email address
@@ -50,7 +51,9 @@ jobs:
 ```
 
 # Contribute
+
 Contributions are very much welcome. Open an Issue for bugs and feature requests. Send a PR to suggest changes!
 
 [**Linus's law**](https://en.wikipedia.org/wiki/Linus%27s_law)
- > `"given enough eyeballs, all bugs are shallow"`
+
+> `"given enough eyeballs, all bugs are shallow"`
