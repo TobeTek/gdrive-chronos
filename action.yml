@@ -25,14 +25,14 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: "3.10"
-        
+
     - name: Install Dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r ${{ github.action_path }}/requirements.txt
       shell: bash
 
     - name: Run GDrive Chronos - Check if files have changed
       id: run-chronos
-      run: mkdir -p chronos && python src/main.py
+      run: mkdir -p ${{ github.action_path }}/chronos && python ${{ github.action_path }}/src/main.py
       shell: bash
 
     - name: Upload Chronos Log Artifact
