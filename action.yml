@@ -4,6 +4,9 @@ outputs:
   updated_files:
     description: "A JSON dump of all the updated files from the Google Drive Folder"
     value: ${{ steps.run-chronos.outputs.updated_files }}
+  slack_message:
+    description: "A Slack Block-style JSON message with text"
+    value: ${{ steps.run-chronos.outputs.slack_message }}
 runs:
   using: "composite"
   steps:

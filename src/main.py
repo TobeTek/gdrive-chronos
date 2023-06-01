@@ -144,13 +144,26 @@ def _persist_log_file(files: dict[str, GdriveFile]):
 
 OLD_FILES = _read_log_file()
 OLD_FILES = {k: GdriveFile.parse_obj(v) for k, v in OLD_FILES.items()}
-updated_files = json.dumps(
-    [file for file in NEW_FILES.values() if file.has_been_updated(OLD_FILES)],
-    default=pydantic_encoder,
+updated_files = [
+    file for file in NEW_FILES.values() if file.has_been_updated(OLD_FILES)
+]
+updated_files = (
+    json.dumps(
+        updated_files,
+        default=pydantic_encoder,
+    ),
 )
+
 
 if WEBHOOK_URL:
     requests.post(url=WEBHOOK_URL, json=updated_files)
 
 _persist_log_file(NEW_FILES)
-write_output_variable(OUTPUT_VARIABLE_NAME, updated_files)
+write_output_variable(
+    OUTPUT_VARIABLE_NAME,
+    updated_files,
+)
+write_output_variable(
+    "slack_message",
+    json.dumps({"text": f"[Chronos Update]: \n{updated_files}"}),
+)

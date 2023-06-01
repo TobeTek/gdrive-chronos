@@ -1,12 +1,10 @@
-name: Test Action
+name: Test Slack Integration
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [master]
   pull_request:
     branches: [master]
-  schedule:
-    - cron: "0 0 * * 1"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -25,6 +23,13 @@ jobs:
           WEBHOOK_URL: ${{ vars.WEBHOOK_URL }}
           GCLOUD_SERVICE_ACCOUNT: ${{ secrets.GCLOUD_SERVICE_ACCOUNT }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        uses: ./ # Uses an action in the root directory
-        # or use a released Github Action
-        # uses: shipyard/github-action/fetch-shipyard-env@1.0.0
+        uses: tobetek/gdrive-chronos@master
+
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: ${{ steps.run-chronos.outputs.slack_message }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ vars.WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

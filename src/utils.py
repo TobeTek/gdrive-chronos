@@ -1,7 +1,5 @@
 import os
 
-
-# to set output, print to shell in following syntax
 def write_output_variable(name, value):
     # print(f"::set-output name={variable_name}::{variable_value}")
     with open(os.getenv("GITHUB_OUTPUT"), "a") as env:
