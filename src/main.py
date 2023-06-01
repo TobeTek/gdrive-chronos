@@ -144,8 +144,15 @@ def _persist_log_file(files: dict[str, GdriveFile]):
 
 OLD_FILES = _read_log_file()
 OLD_FILES = {k: GdriveFile.parse_obj(v) for k, v in OLD_FILES.items()}
-updated_files = [file for file in NEW_FILES.values() if file.has_been_updated(OLD_FILES)]
-
+updated_files = [
+    file for file in NEW_FILES.values() if file.has_been_updated(OLD_FILES)
+]
+updated_files = (
+    json.dumps(
+        updated_files,
+        default=pydantic_encoder,
+    ),
+)
 
 
 if WEBHOOK_URL:
@@ -154,8 +161,5 @@ if WEBHOOK_URL:
 _persist_log_file(NEW_FILES)
 write_output_variable(
     OUTPUT_VARIABLE_NAME,
-    json.dumps(
-        updated_files,
-        default=pydantic_encoder,
-    ),
+    updated_files,
 )
