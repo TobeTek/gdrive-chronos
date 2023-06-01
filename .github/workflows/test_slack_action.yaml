@@ -1,5 +1,5 @@
 # .github/workflows/test_action.yaml
-name: Test Action
+name: Test Slack Integration
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -25,7 +25,7 @@ jobs:
           WEBHOOK_URL: ${{ vars.WEBHOOK_URL }}
           GCLOUD_SERVICE_ACCOUNT: ${{ secrets.GCLOUD_SERVICE_ACCOUNT }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        uses: tobetek/gdrive-chronos 
+        uses: tobetek/gdrive-chronos@master 
       
       - - name: Send custom JSON data to Slack workflow
   id: slack
