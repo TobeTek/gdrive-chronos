@@ -1,0 +1,31 @@
+# .github/workflows/test_action.yaml
+name: Test Action
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: "0 */1 * * *"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  monitor-gdrive:
+    runs-on: ubuntu-latest
+    name: Test GitHub Action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Monitor Google Drive Folder
+        id: run-chronos
+        env:
+          GOOGLE_FOLDER_ID: ${{ vars.GOOGLE_FOLDER_ID }}
+          WEBHOOK_URL: ${{ vars.WEBHOOK_URL }}
+          GCLOUD_SERVICE_ACCOUNT: ${{ vars.GCLOUD_SERVICE_ACCOUNT }}
+        uses: ./ # Uses an action in the root directory
+        # or use a released Github Action
+        # uses: shipyard/github-action/fetch-shipyard-env@1.0.0

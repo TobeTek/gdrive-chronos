@@ -1,0 +1,43 @@
+name: "GDrive Chronos Action"
+description: "A Github Action (un-official) that monitors a Google Drive Folder for changes and invokes a webhook with changed files and their properties"
+outputs:
+  updated_files:
+    description: "A JSON dump of all the updated files from the Google Drive Folder"
+    value: ${{ steps.run-chronos.outputs.updated_files }}
+runs:
+  using: "composite"
+  steps:
+    - name: Download old Chronos Log Artifact # (if any)
+      uses: actions/download-artifact@v3
+      with:
+        name: Chronos Log
+        path: chronos/gdrive-chronos-dump.json
+      
+      continue-on-error: true # File may not exist on initial run
+
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+    
+    - uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ hashFiles('requirements.txt') }}
+    
+    - name: Install Dependencies
+      run:
+        pip install -r requirements.txt
+      shell: bash
+
+    - name: Run GDrive Chronos - Check if files have changed
+      id: run-chronos
+      run: 
+        mkdir -p chronos && python src/main.py
+      shell: bash
+
+    - name: Upload Chronos Log Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Chronos Log
+        path: chronos/gdrive-chronos-dump.json
