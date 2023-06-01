@@ -32,11 +32,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.24.0
         with:
           # For posting a rich message using Block Kit
-          payload: |
-            {
-              "text": "[Gdrive-Chronos] Update: ${{ steps.run-chronos.outputs.updated_files }}\n",
-              
-            }
+          payload: { "text": "[Gdrive-Chronos] Update:\n\n ${{ toJSON(steps.run-chronos.outputs.updated_files) }}\n", }
         env:
           SLACK_WEBHOOK_URL: ${{ vars.WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
