@@ -12,7 +12,7 @@ runs:
       with:
         name: Chronos Log
         path: chronos/gdrive-chronos-dump.json
-      
+        github_token: ${{ env.GITHUB_TOKEN }}
       continue-on-error: true # File may not exist on initial run
 
     - name: Install Python

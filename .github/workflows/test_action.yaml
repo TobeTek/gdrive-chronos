@@ -26,6 +26,7 @@ jobs:
           GOOGLE_FOLDER_ID: ${{ vars.GOOGLE_FOLDER_ID }}
           WEBHOOK_URL: ${{ vars.WEBHOOK_URL }}
           GCLOUD_SERVICE_ACCOUNT: ${{ vars.GCLOUD_SERVICE_ACCOUNT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: ./ # Uses an action in the root directory
         # or use a released Github Action
         # uses: shipyard/github-action/fetch-shipyard-env@1.0.0
