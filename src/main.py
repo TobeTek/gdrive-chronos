@@ -163,3 +163,7 @@ write_output_variable(
     OUTPUT_VARIABLE_NAME,
     updated_files,
 )
+write_output_variable(
+    "slack_message",
+    json.dumps({"text": f"[Chronos Update]: \n{updated_files}"}),
+)
