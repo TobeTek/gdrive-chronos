@@ -6,7 +6,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-  
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -25,18 +25,18 @@ jobs:
           WEBHOOK_URL: ${{ vars.WEBHOOK_URL }}
           GCLOUD_SERVICE_ACCOUNT: ${{ secrets.GCLOUD_SERVICE_ACCOUNT }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        uses: tobetek/gdrive-chronos@master 
-      
-      - - name: Send custom JSON data to Slack workflow
-  id: slack
-  uses: slackapi/slack-github-action@v1.24.0
-  with:
-    # For posting a rich message using Block Kit
-    payload: |
-      {
-        "text": "[Gdrive-Chronos] Update: ${{ steps.run-chronos.outputs.updated_files }}\n",
-        
-      }
-  env:
-    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        uses: tobetek/gdrive-chronos@master
+
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          # For posting a rich message using Block Kit
+          payload: |
+            {
+              "text": "[Gdrive-Chronos] Update: ${{ steps.run-chronos.outputs.updated_files }}\n",
+              
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
