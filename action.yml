@@ -1,6 +1,7 @@
 name: "GDrive Chronos Action"
-icon: chevron-right
-color: gray-dark
+branding:
+  icon: chevron-right
+  color: gray-dark
 description: "Monitor a Google Drive Folder for changes"
 outputs:
   updated_files:
