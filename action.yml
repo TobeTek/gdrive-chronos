@@ -13,11 +13,12 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v3
     - name: Download old Chronos Log Artifact # (if any)
       uses: dawidd6/action-download-artifact@v2
       with:
         name: Chronos Log
-        path: chronos
+        path: ${{ github.workspace }}/chronos
         github_token: ${{ env.ACCESS_TOKEN }}
       continue-on-error: true # File may not exist on initial run
 
@@ -39,4 +40,4 @@ runs:
       uses: actions/upload-artifact@v3
       with:
         name: Chronos Log
-        path: chronos/gdrive-chronos-dump.json
+        path: ${{ github.workspace }}/chronos/gdrive-chronos-dump.json

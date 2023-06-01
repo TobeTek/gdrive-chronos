@@ -19,7 +19,7 @@ WEBHOOK_URL = os.environ.get("WEBHOOK_URL", None)
 
 GITHUB_PATH = os.environ["GITHUB_WORKSPACE"]
 
-LOG_FILE = os.path.join("chronos/", "gdrive-chronos-dump.json")
+LOG_FILE = os.path.join(GITHUB_PATH, "chronos/", "gdrive-chronos-dump.json")
 OUTPUT_VARIABLE_NAME = "updated_files"
 GDRIVE_API_PAGE_SIZE = 10
 
