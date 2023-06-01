@@ -2,7 +2,6 @@ import json
 import os
 from datetime import datetime
 from typing import Optional
-import io
 
 from google.oauth2.service_account import Credentials as ServiceCredentials
 from googleapiclient.discovery import build
@@ -144,7 +143,7 @@ def _persist_log_file(files: dict[str, GdriveFile]):
 
 
 OLD_FILES = _read_log_file()
-OLD_FILES = {k: GdriveFile.parse_obj(v) for k,v in OLD_FILES.items() }
+OLD_FILES = {k: GdriveFile.parse_obj(v) for k, v in OLD_FILES.items()}
 updated_files = json.dumps(
     [file for file in NEW_FILES.values() if file.has_been_updated(OLD_FILES)],
     default=pydantic_encoder,
