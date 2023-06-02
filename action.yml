@@ -18,7 +18,7 @@ runs:
       uses: dawidd6/action-download-artifact@v2
       with:
         name: Chronos Log
-        path: ${{ github.workspace }}/chronos
+        path: chronos
         github_token: ${{ env.ACCESS_TOKEN }}
       continue-on-error: true # File may not exist on initial run
 

@@ -154,6 +154,7 @@ updated_files = (
     ),
 )
 
+print(f"\n{updated_files=}\n{len(NEW_FILES)=}\n")
 
 if WEBHOOK_URL:
     requests.post(url=WEBHOOK_URL, json=updated_files)
